@@ -1,22 +1,22 @@
 const gameboard = (() => {
     const board = [];
-    const div1 = document.createElement('div');
+    const div1 = document.getElementById('1');
     board.push(div1);
-    const div2 = document.createElement('div');
+    const div2 = document.getElementById(2);
     board.push(div2);
-    const div3 = document.createElement('div');
+    const div3 = document.getElementById(3);
     board.push(div3);
-    const div4 = document.createElement('div');
+    const div4 = document.getElementById(4);
     board.push(div4);
-    const div5 = document.createElement('div');
+    const div5 = document.getElementById(5);
     board.push(div5);
-    const div6 = document.createElement('div');
+    const div6 = document.getElementById(6);
     board.push(div6);
-    const div7 = document.createElement('div');
+    const div7 = document.getElementById(7);
     board.push(div7);
-    const div8 = document.createElement('div');
+    const div8 = document.getElementById(8);
     board.push(div8);
-    const div9 = document.createElement('div');
+    const div9 = document.getElementById(9);
     board.push(div9);
 return {
     board
@@ -29,6 +29,7 @@ const players = (sign) =>{
 
 
 const game = ()=>{
+    board = gameboard.board;
     const win = ()=>{
         //win screen whatever 
     }
@@ -66,13 +67,24 @@ const game = ()=>{
         }
     };
 
+    const checkBlank = (board)=> {
+        blanks = [];
+        board.array.forEach(element => {
+            if (element.textContent === ""){
+                blanks.push(element);
+            } 
+        });
+        return {board}
+    };
 
     const CPUmove = () => {
         //based on white spaces, CPU does their move
+        blanks = checkblank
+        move = math.floor(Math.random()*)
     }
 
     return{
-        checkWin, checkBlank, CPUmove
+        checkWin, CPUmove
     }
 
 };
