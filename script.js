@@ -32,7 +32,6 @@ const game = ()=>{
     const win = ()=>{
         //win screen whatever 
     }
-    };
 
     const checkWin = (sign) => {
         //check board to see if there's 3 in a row
@@ -66,16 +65,14 @@ const game = ()=>{
             win(); 
         }
     };
-    const checkBlank = () => {
-        //check white spaces 
-    };
+
 
     const CPUmove = () => {
         //based on white spaces, CPU does their move
-    };
+    }
 
     return{
         checkWin, checkBlank, CPUmove
     }
 
-})();
+};
