@@ -35,57 +35,59 @@ const checkBlank = (board)=> {
 
 const players = (sign) =>{
     this.sign = sign;
-    blanks = checkBlank.board;
 };
 
+const win = ((player) =>{
+    screen = document.createElement('div');
+    screen.textContent = `${player.sign} wins!` 
+})();
 
 const game = ()=>{
-    board = gameboard.board;
-    const win = ()=>{
-        //win screen whatever 
-    }
+    const player1 = players('x');
+    const player2 = players('o');
 
-    const checkWin = (sign) => {
+    board = gameboard.board;
+    board.forEach(addEventListener('click', ()=>{
+        
+    }))
+}
+    const checkWin = (player) => {
         //check board to see if there's 3 in a row
-        if (div1.textContent === sign && div2.textContent === sign && div3.textContent === sign){
-            win();
+        if (div1.textContent === player.sign && div2.textContent === player.sign && div3.textContent === player.sign){
+            win(player);
         }
-        else if (div4.textContent === sign && div5.textContent === sign && div6.textContent === sign){
-            win();
+        else if (div4.textContent === player.sign && div5.textContent === player.sign && div6.textContent === player.sign){
+            win(player);
         }
-        else if (div7.textContent === sign && div8.textContent === sign && div9.textContent === sign){
-            win();
+        else if (div7.textContent === player.sign && div8.textContent === player.sign && div9.textContent === player.sign){
+            win(player);
         }
         //left-most column 3 in a row 
-        else if (div1.textContent === sign && div4.textContent === sign && div7.textContent === sign){
-            win();
+        else if (div1.textContent === player.sign && div4.textContent === player.sign && div7.textContent === player.sign){
+            win(player);
         }
         //middle column
-        else if (div2.textContent === sign && div5.textContent === sign && div8.textContent === sign){
-            win();
+        else if (div2.textContent === player.sign && div5.textContent === player.sign && div8.textContent === player.sign){
+            win(player);
         }
         //right-most column
-        else if (div3.textContent === sign && div6.textContent === sign && div9.textContent === sign){
-            win();
+        else if (div3.textContent === player.sign && div6.textContent === player.sign && div9.textContent === player.sign){
+            win(player);
         }
         // diagonal 1 
-        else if (div7.textContent === sign && div5.textContent === sign && div3.textContent === sign){
-            win();
+        else if (div7.textContent === player.sign && div5.textContent === player.sign && div3.textContent === player.sign){
+            win(player);
         }
         //diagonal 2
-        else if (div9.textContent === sign && div5.textContent === sign && div1.textContent === sign){
-            win(); 
+        else if (div9.textContent === player.sign && div5.textContent === player.sign && div1.textContent === player.sign){
+            win(player); 
         }
     };
 
     const CPUmove = () => {
         //based on white spaces, CPU does their move
         blanks = checkBlank.board;
-        move = math.floor(Math.random()*blanks.length)
+        move = math.floor(Math.random()*blanks.length);
+
     }
 
-    return{
-        checkWin, CPUmove
-    }
-
-};
