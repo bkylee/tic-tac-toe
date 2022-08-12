@@ -1,0 +1,10 @@
+#wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-auto-rows: 300px;
+    justify-content: center;
+}
+
+#wrapper>div{
+    border: solid 2px black;
+}
