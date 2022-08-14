@@ -21,7 +21,13 @@ const gameboard = (() => {
     board.forEach((element)=>{
         addEventListener('click', ()=>{
             if (element.textContent === ""){
-            element.textContent = 'x';}
+            element.textContent = 'x';
+        checkWin('x');
+        const oMove = CPUmove();
+        board[oMove].textContent = 'o';
+        checkWin('o');
+    }
+    else checkWin();
         })
     });
 return {
@@ -29,7 +35,6 @@ return {
 }
 })();
 
-board
 const checkBlank = (board)=> {
     blanks = [];
     board.array.forEach(element => {
@@ -44,41 +49,72 @@ const players = (sign) =>{
     this.sign = sign;
 };
 
-const win = ((player) =>{
-    screen = document.createElement('div');
-    screen.textContent = `${player.sign} wins!` 
+const reset = ((board) =>{
+    board.forEach((element)=>{
+        element.textContent = "";
+    })
 })();
 
-const checkWin = (player) => {
+const checkWin = (sign, board) => {
+    //function to show winner 
+    const win = ((sign) =>{
+        //create win div screen thing
+        screen = document.createElement('div');
+        screen.textContent = `${sign} wins!`;
+//create reset button
+
+        const resetB = document.createElement('button');
+        resetB.textContent = 'Reset';
+        resetB.setAttribute('type', 'button');
+
+        //append new elements to wrapper 
+        wrapper = document.getElementById('wrapper');
+        wrapper.appendChild(screen);
+        wrapper.appendChild(resetB);
+        
+        //add event listener on button to reset the board
+        resetB.addEventListener('click', (board)=>{
+            reset(board);
+            resetB.removeChild();
+            screen.removechild();
+        });
+    })();
+    const blanks = checkBlank(board);
+
     //check board to see if there's 3 in a row
-    if (div1.textContent === player.sign && div2.textContent === player.sign && div3.textContent === player.sign){
+    if (div1.textContent === sign && div2.textContent === sign && div3.textContent === sign){
         win(player);
     }
-    else if (div4.textContent === player.sign && div5.textContent === player.sign && div6.textContent === player.sign){
+    else if (div4.textContent === sign && div5.textContent === sign && div6.textContent === sign){
         win(player);
     }
-    else if (div7.textContent === player.sign && div8.textContent === player.sign && div9.textContent === player.sign){
+    else if (div7.textContent === sign && div8.textContent === sign && div9.textContent === sign){
         win(player);
     }
     //left-most column 3 in a row 
-    else if (div1.textContent === player.sign && div4.textContent === player.sign && div7.textContent === player.sign){
+    else if (div1.textContent === sign && div4.textContent === sign && div7.textContent === sign){
         win(player);
     }
     //middle column
-    else if (div2.textContent === player.sign && div5.textContent === player.sign && div8.textContent === player.sign){
+    else if (div2.textContent === sign && div5.textContent === sign && div8.textContent === sign){
         win(player);
     }
     //right-most column
-    else if (div3.textContent === player.sign && div6.textContent === player.sign && div9.textContent === player.sign){
+    else if (div3.textContent === sign && div6.textContent === sign && div9.textContent === sign){
         win(player);
     }
     // diagonal 1 
-    else if (div7.textContent === player.sign && div5.textContent === player.sign && div3.textContent === player.sign){
+    else if (div7.textContent === sign && div5.textContent === sign && div3.textContent === sign){
         win(player);
     }
     //diagonal 2
-    else if (div9.textContent === player.sign && div5.textContent === player.sign && div1.textContent === player.sign){
+    else if (div9.textContent === sign && div5.textContent === sign && div1.textContent === sign){
         win(player); 
+    }
+    else if (blanks.length === 0){
+        const tie = document.createElement('div');
+        tie.textContent = `It's a tie!`;
+
     }
 };
 
@@ -95,5 +131,6 @@ const game = ()=>{
     const player2 = players('o');
 
     board = gameboard.board;
+
 
 }
