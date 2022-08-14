@@ -18,8 +18,9 @@ const gameboard = (() => {
     board.push(div8);
     const div9 = document.getElementById('9');
     board.push(div9);
+
     board.forEach((element)=>{
-        addEventListener('click', ()=>{
+        element.addEventListener('click', ()=>{
             if (element.textContent === ""){
             element.textContent = 'x';
         checkWin('x', board);
@@ -27,13 +28,15 @@ const gameboard = (() => {
         board[oMove].textContent = 'o';
         checkWin('o',board);
     }
-    else prompt('Please click a blank spot');
-        })
-    })();
-return {
+    else {prompt('Please click a blank spot');}
+})
+})
+
+return{
     board
 }
 })();
+
 
 
 //function to check the blank spots on the board
@@ -56,7 +59,7 @@ const reset = ((board) =>{
     board.forEach((element)=>{
         element.textContent = "";
     })
-})();
+});
 
 const checkWin = (sign, board) => {
     //function to show winner 
@@ -71,9 +74,9 @@ const checkWin = (sign, board) => {
         resetB.setAttribute('type', 'button');
 
         //append new elements to wrapper 
-        wrapper = document.getElementById('wrapper');
-        wrapper.appendChild(screen);
-        wrapper.appendChild(resetB);
+        body = document.body;
+        body.appendChild(screen);
+        body.appendChild(resetB);
         
         //add event listener on button to reset the board
         resetB.addEventListener('click', (board)=>{
@@ -117,6 +120,8 @@ const checkWin = (sign, board) => {
     else if (blanks.length === 0){
         const tie = document.createElement('div');
         tie.textContent = `It's a tie!`;
+        body = document.body;
+        body.appendChild(tie);
 
     }
 };
@@ -129,6 +134,7 @@ return{
     move
 }
 }
+
 const game = ()=>{
     const player1 = players('x');
     const player2 = players('o');
@@ -137,5 +143,3 @@ const game = ()=>{
 
 
 }
-
-game();
