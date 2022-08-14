@@ -22,19 +22,21 @@ const gameboard = (() => {
         addEventListener('click', ()=>{
             if (element.textContent === ""){
             element.textContent = 'x';
-        checkWin('x');
+        checkWin('x', board);
         const oMove = CPUmove();
         board[oMove].textContent = 'o';
-        checkWin('o');
+        checkWin('o',board);
     }
-    else checkWin();
+    else prompt('Please click a blank spot');
         })
-    });
+    })();
 return {
     board
 }
 })();
 
+
+//function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
     board.array.forEach(element => {
@@ -49,6 +51,7 @@ const players = (sign) =>{
     this.sign = sign;
 };
 
+//function to reset the board 
 const reset = ((board) =>{
     board.forEach((element)=>{
         element.textContent = "";
@@ -134,3 +137,5 @@ const game = ()=>{
 
 
 }
+
+game();
