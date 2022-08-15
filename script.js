@@ -24,7 +24,9 @@ const gameboard = (() => {
             if (element.textContent === ""){
             element.textContent = 'x';
         checkWin('x', board);
-        const oMove = CPUmove();
+        const blanks = checkBlank(board);
+        const oMove = Math.floor(Math.random()*blanks.length);
+        console.log(oMove);
         board[oMove].textContent = 'o';
         checkWin('o',board);
     }
@@ -124,8 +126,8 @@ const checkWin = (sign, board) => {
 
 const CPUmove = (board) => {
     //based on white spaces, CPU does their move
-    blanks = checkBlank(board);
-    move = Math.floor(Math.random()*blanks.length);
+    const blanks = checkBlank(board);
+    const move = Math.floor(Math.random()*blanks.length);
 return{
     move
 }
