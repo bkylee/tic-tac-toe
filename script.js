@@ -40,12 +40,12 @@ return{
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
-    board.forEach(element => {
+    board.forEach((element) => {
         if (element.textContent === ""){
             blanks.push(element);
         } 
     });
-    return {board}
+    return {blanks}
 };
 
 const players = (sign) =>{
