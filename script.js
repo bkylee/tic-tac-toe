@@ -40,7 +40,7 @@ return{
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
-    board.array.forEach(element => {
+    board.forEach(element => {
         if (element.textContent === ""){
             blanks.push(element);
         } 
@@ -54,16 +54,17 @@ const players = (sign) =>{
 
 //function to reset the board 
 const reset = ((board) =>{
-    board.forEach((element)=>{
-        element.textContent = "";
-    })
+    blanks = checkBlank(board);
+    if (blanks.length === 0){
+        const tie = document.createElement('div');
+        tie.textContent = `It's a tie!`;
+        body = document.body;
+        body.appendChild(tie);
+    }
 });
 
 const checkWin = (sign, board) => {
     
-    //set variables 
-    const blanks = checkBlank(board);
-
     //function to show winner 
     const win = ((sign) =>{
         //create win div screen thing
@@ -88,42 +89,36 @@ const checkWin = (sign, board) => {
     });
 
     //check board to see if there's 3 in a row
-    if (div1.textContent === sign && div2.textContent === sign && div3.textContent === sign){
-        win(player);
+    if (board[0].textContent === sign && board[1].textContent === sign && board[2].textContent === sign){
+        win(sign);
     }
-    else if (div4.textContent === sign && div5.textContent === sign && div6.textContent === sign){
-        win(player);
+    else if (board[3].textContent === sign && board[4].textContent === sign && board[5].textContent === sign){
+        win(sign);
     }
-    else if (div7.textContent === sign && div8.textContent === sign && div9.textContent === sign){
-        win(player);
+    else if (board[6].textContent === sign && board[7].textContent === sign && board[8].textContent === sign){
+        win(sign);
     }
     //left-most column 3 in a row 
-    else if (div1.textContent === sign && div4.textContent === sign && div7.textContent === sign){
-        win(player);
+    else if (board[0].textContent === sign && board[3].textContent === sign && board[6].textContent === sign){
+        win(sign);
     }
     //middle column
-    else if (div2.textContent === sign && div5.textContent === sign && div8.textContent === sign){
-        win(player);
+    else if (board[1].textContent === sign && board[4].textContent === sign && board[7].textContent === sign){
+        win(sign);
     }
     //right-most column
-    else if (div3.textContent === sign && div6.textContent === sign && div9.textContent === sign){
-        win(player);
+    else if (board[2].textContent === sign && board[5].textContent === sign && board[8].textContent === sign){
+        win(sign);
     }
     // diagonal 1 
-    else if (div7.textContent === sign && div5.textContent === sign && div3.textContent === sign){
-        win(player);
+    else if (board[6].textContent === sign && board[4].textContent === sign && board[2].textContent === sign){
+        win(sign);
     }
     //diagonal 2
-    else if (div9.textContent === sign && div5.textContent === sign && div1.textContent === sign){
-        win(player); 
+    else if (board[8].textContent === sign && board[4].textContent === sign && board[0].textContent === sign){
+        win(sign); 
     }
-    else if (blanks.length === 0){
-        const tie = document.createElement('div');
-        tie.textContent = `It's a tie!`;
-        body = document.body;
-        body.appendChild(tie);
-
-    }
+    else reset(board);
 };
 
 const CPUmove = () => {
