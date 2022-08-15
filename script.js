@@ -37,8 +37,6 @@ return{
 }
 })();
 
-
-
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
@@ -62,17 +60,20 @@ const reset = ((board) =>{
 });
 
 const checkWin = (sign, board) => {
+    
+    //set variables 
+    const blanks = checkBlank(board);
+
     //function to show winner 
     const win = ((sign) =>{
         //create win div screen thing
         screen = document.createElement('div');
-        screen.textContent = `${sign} wins!`;})
-//create reset button
-
+        screen.textContent = `${sign} wins!`;
+    //create reset button
         const resetB = document.createElement('button');
         resetB.textContent = 'Reset';
         resetB.setAttribute('type', 'button');
-
+    
         //append new elements to wrapper 
         body = document.body;
         body.appendChild(screen);
@@ -84,8 +85,7 @@ const checkWin = (sign, board) => {
             resetB.removeChild();
             screen.removechild();
         });
-
-    const blanks = checkBlank(board);
+    });
 
     //check board to see if there's 3 in a row
     if (div1.textContent === sign && div2.textContent === sign && div3.textContent === sign){
