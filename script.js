@@ -66,7 +66,7 @@ const checkWin = (sign, board) => {
     const win = ((sign) =>{
         //create win div screen thing
         screen = document.createElement('div');
-        screen.textContent = `${sign} wins!`;
+        screen.textContent = `${sign} wins!`;})
 //create reset button
 
         const resetB = document.createElement('button');
@@ -84,7 +84,7 @@ const checkWin = (sign, board) => {
             resetB.removeChild();
             screen.removechild();
         });
-    })();
+
     const blanks = checkBlank(board);
 
     //check board to see if there's 3 in a row
