@@ -74,6 +74,7 @@ const checkWin = (sign, board) => {
         const resetB = document.createElement('button');
         resetB.textContent = 'Reset';
         resetB.setAttribute('type', 'button');
+        //have to remove event listeners to divs when resset button is up 
     
         //append new elements to wrapper 
         body = document.body;
@@ -121,10 +122,10 @@ const checkWin = (sign, board) => {
     else reset(board);
 };
 
-const CPUmove = () => {
+const CPUmove = (board) => {
     //based on white spaces, CPU does their move
-    blanks = checkBlank.board;
-    move = math.floor(Math.random()*blanks.length);
+    blanks = checkBlank(board);
+    move = Math.floor(Math.random()*blanks.length);
 return{
     move
 }
