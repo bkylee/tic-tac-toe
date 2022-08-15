@@ -1,4 +1,4 @@
-const gameboard = (() => {
+const gameboard = ((player1, player2) => {
     const board = [];
     const div1 = document.getElementById('1');
     board.push(div1);
@@ -23,12 +23,12 @@ const gameboard = (() => {
         element.addEventListener('click', ()=>{
             if (element.textContent === ""){
             element.textContent = 'x';
-        checkWin('x', board);
+        checkWin(player1, board);
         const blanks = checkBlank(board);
         const oMove = Math.floor(Math.random()*blanks.length);
         console.log(oMove);
         board[oMove].textContent = 'o';
-        checkWin('o',board);
+        checkWin(player2,board);
     }
     else {prompt('Please click a blank spot');}
 })
@@ -125,7 +125,7 @@ const checkWin = (player) => {
     else if (board[8].textContent === player.sign && board[4].textContent === player.sign && board[0].textContent === player.sign){
         win(player); 
     }
-    else reset(board);
+    else reset();
 };
 
 const CPUmove = (board) => {
@@ -138,10 +138,10 @@ return{
 }
 
 const game = ()=>{
-    const player1 = players('x');
-    const player2 = players('o');
+    const player1 = players('x', 'Player 1');
+    const player2 = players('o', 'Player 2');
 
-    board = gameboard.board;
+    board = gameboard.board (player1, player2);
 
 
 
