@@ -34,9 +34,7 @@ const gameboard = (() => {
 })
 })
 
-return{
-    board
-}
+return {board};
 })();
 
 //function to check the blank spots on the board
@@ -47,39 +45,45 @@ const checkBlank = (board)=> {
             blanks.push(element);
         } 
     });
-    return {blanks}
+    return blanks;
 };
 
-const players = (sign) =>{
-    this.sign = sign;
+const players = (sign, name) =>{
+    return{
+        sign, name
+    }
 };
 
 //function to reset the board 
-const reset = ((board) =>{
-    blanks = checkBlank(board);
+const reset = () =>{
+    const board = gameboard.board;
+    const blanks = checkBlank(board);
     if (blanks.length === 0){
         const tie = document.createElement('div');
         tie.textContent = `It's a tie!`;
         body = document.body;
         body.appendChild(tie);
     }
-});
+    return {blanks}
+};
 
-const checkWin = (sign, board) => {
-    
+const checkWin = (player) => {
+    const board = gameboard.board;
     //function to show winner 
-    const win = ((sign) =>{
+    const win = (player) => {
+
         //create win div screen thing
-        screen = document.createElement('div');
-        screen.textContent = `${sign} wins!`;
+        const screen = document.createElement('div');
+        screen.textContent = `${player.name} wins!`;
     //create reset button
         const resetB = document.createElement('button');
         resetB.textContent = 'Reset';
         resetB.setAttribute('type', 'button');
+        resetB.addEventListener('click', reset());
         //have to remove event listeners to divs when resset button is up 
     
         //append new elements to wrapper 
-        body = document.body;
+        const body = document.body;
         body.appendChild(screen);
         body.appendChild(resetB);
         
@@ -89,37 +93,37 @@ const checkWin = (sign, board) => {
             resetB.removeChild();
             screen.removechild();
         });
-    });
+    };
 
     //check board to see if there's 3 in a row
-    if (board[0].textContent === sign && board[1].textContent === sign && board[2].textContent === sign){
-        win(sign);
+    if (board[0].textContent === player.sign && board[1].textContent === player.sign && board[2].textContent === player.sign){
+        win(player);
     }
-    else if (board[3].textContent === sign && board[4].textContent === sign && board[5].textContent === sign){
-        win(sign);
+    else if (board[3].textContent === player.sign && board[4].textContent === player.sign && board[5].textContent === player.sign){
+        win(player);
     }
-    else if (board[6].textContent === sign && board[7].textContent === sign && board[8].textContent === sign){
-        win(sign);
+    else if (board[6].textContent === player.sign && board[7].textContent === player.sign && board[8].textContent === player.sign){
+        win(player);
     }
     //left-most column 3 in a row 
-    else if (board[0].textContent === sign && board[3].textContent === sign && board[6].textContent === sign){
-        win(sign);
+    else if (board[0].textContent === player.sign && board[3].textContent === player.sign && board[6].textContent === player.sign){
+        win(player);
     }
     //middle column
-    else if (board[1].textContent === sign && board[4].textContent === sign && board[7].textContent === sign){
-        win(sign);
+    else if (board[1].textContent === player.sign && board[4].textContent === player.sign && board[7].textContent === player.sign){
+        win(player);
     }
     //right-most column
-    else if (board[2].textContent === sign && board[5].textContent === sign && board[8].textContent === sign){
-        win(sign);
+    else if (board[2].textContent === player.sign && board[5].textContent === player.sign && board[8].textContent === player.sign){
+        win(player);
     }
     // diagonal 1 
-    else if (board[6].textContent === sign && board[4].textContent === sign && board[2].textContent === sign){
-        win(sign);
+    else if (board[6].textContent === player.sign && board[4].textContent === player.sign && board[2].textContent === player.sign){
+        win(player);
     }
     //diagonal 2
-    else if (board[8].textContent === sign && board[4].textContent === sign && board[0].textContent === sign){
-        win(sign); 
+    else if (board[8].textContent === player.sign && board[4].textContent === player.sign && board[0].textContent === player.sign){
+        win(player); 
     }
     else reset(board);
 };
@@ -138,6 +142,7 @@ const game = ()=>{
     const player2 = players('o');
 
     board = gameboard.board;
+
 
 
 }
