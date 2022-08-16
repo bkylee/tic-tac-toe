@@ -1,4 +1,13 @@
-const gameboard = ((player1, player2) => {
+const players = (sign, name) =>{
+    return{
+        sign, name
+    }
+};
+
+
+const gameboard = (() => {
+    const player1 = players('x', 'player1');
+    const player2 = players('o','player2')
     const board = [];
     const div1 = document.getElementById('1');
     board.push(div1);
@@ -36,7 +45,6 @@ const gameboard = ((player1, player2) => {
 
 return {board};
 })();
-
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
@@ -46,12 +54,6 @@ const checkBlank = (board)=> {
         } 
     });
     return blanks;
-};
-
-const players = (sign, name) =>{
-    return{
-        sign, name
-    }
 };
 
 //function to reset the board 
@@ -137,12 +139,3 @@ return{
 }
 }
 
-const game = ()=>{
-    const player1 = players('x', 'Player 1');
-    const player2 = players('o', 'Player 2');
-
-    board = gameboard.board (player1, player2);
-
-
-
-}
