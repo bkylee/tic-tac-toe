@@ -28,23 +28,36 @@ const gameboard = (() => {
     const div9 = document.getElementById('9');
     board.push(div9);
 
+    const resetB = document.getElementById('reset');
+    resetB.textContent = 'Reset';
+    resetB.addEventListener('click', ()=>{
+        board.forEach((element)=>{
+            element.textContent = "";
+        });
+        const body = document.body;
+        const screen = document.getElementById('win');
+        body.removeChild(screen);
+    });
+
     board.forEach((element)=>{
         element.addEventListener('click', ()=>{
             if (element.textContent === ""){
             element.textContent = 'x';
         checkWin(player1, board);
         const blanks = checkBlank(board);
+                if (blanks.length === 0){
+                    return
+                }
         const oMove = Math.floor(Math.random()*blanks.length);
-        console.log(oMove);
         board[oMove].textContent = 'o';
-        checkWin(player2,board);
-    }
-    else {prompt('Please click a blank spot');}
+        checkWin(player2,board);}
+    else prompt('Please click a blank spot');
 })
-})
+});
 
 return {board};
 })();
+
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
@@ -56,18 +69,6 @@ const checkBlank = (board)=> {
     return blanks;
 };
 
-//function to reset the board 
-const reset = () =>{
-    const board = gameboard.board;
-    const blanks = checkBlank(board);
-    if (blanks.length === 0){
-        const tie = document.createElement('div');
-        tie.textContent = `It's a tie!`;
-        body = document.body;
-        body.appendChild(tie);
-    }
-    return {blanks}
-};
 
 const checkWin = (player) => {
     const board = gameboard.board;
@@ -75,26 +76,11 @@ const checkWin = (player) => {
     const win = (player) => {
 
         //create win div screen thing
-        const screen = document.createElement('div');
-        screen.textContent = `${player.name} wins!`;
-    //create reset button
-        const resetB = document.createElement('button');
-        resetB.textContent = 'Reset';
-        resetB.setAttribute('type', 'button');
-        resetB.addEventListener('click', reset());
-        //have to remove event listeners to divs when resset button is up 
-    
-        //append new elements to wrapper 
         const body = document.body;
+        const screen = document.createElement('div');
+        screen.setAttribute('id','win');
+        screen.textContent = `${player.name} wins!`;
         body.appendChild(screen);
-        body.appendChild(resetB);
-        
-        //add event listener on button to reset the board
-        resetB.addEventListener('click', (board)=>{
-            reset(board);
-            body.removeChild(resetB);
-            body.removeChild(screen);
-        });
     };
 
     //check board to see if there's 3 in a row
@@ -127,7 +113,17 @@ const checkWin = (player) => {
     else if (board[8].textContent === player.sign && board[4].textContent === player.sign && board[0].textContent === player.sign){
         win(player); 
     }
-    else reset();
+    else if (board.forEach((element)=>{
+        element.textContent != "";
+        const blanks = checkBlank(board);
+        if (blanks.length === 0){
+        const tie = document.createElement('div');
+        tie.textContent = `It's a tie!`;
+        body = document.body;
+        body.appendChild(tie);
+    }
+    })
+    );
 };
 
 const CPUmove = (board) => {
