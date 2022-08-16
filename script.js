@@ -92,8 +92,8 @@ const checkWin = (player) => {
         //add event listener on button to reset the board
         resetB.addEventListener('click', (board)=>{
             reset(board);
-            resetB.removeChild();
-            screen.removechild();
+            body.removeChild(resetB);
+            body.removeChild(screen);
         });
     };
 
