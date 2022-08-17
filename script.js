@@ -4,6 +4,16 @@ const players = (sign, name) =>{
     }
 };
 
+    //function to show winner 
+    const win = (player) => {
+        //create win div screen thing
+        const body = document.body;
+        const screen = document.createElement('div');
+        screen.setAttribute('id','win');
+        screen.textContent = `${player.name} wins!`;
+        body.appendChild(screen);
+    };
+
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
@@ -61,12 +71,20 @@ const gameboard = (() => {
         element.addEventListener('click', ()=>{
             if (element.textContent === ""){
             element.textContent = 'x';
-        checkWin(player1, board);
+        let winner = checkWin(player1);
+                if (winner === player1.name){
+                    win(player1);
+                }
+        else if (winner === null){
         const oMove = CPUmove(board);
         board[oMove].textContent = 'o';
-        checkWin(player2,board);}
+        winner = checkWin(player2);
+            if (winner = player2.name){
+                win(player2);
+            }
+            }
     else prompt('Please click a blank spot');
-})
+}})
 });
 
 return {board};
@@ -74,45 +92,36 @@ return {board};
 
 const checkWin = (player) => {
     const board = gameboard.board;
-    //function to show winner 
-    const win = (player) => {
-        //create win div screen thing
-        const body = document.body;
-        const screen = document.createElement('div');
-        screen.setAttribute('id','win');
-        screen.textContent = `${player.name} wins!`;
-        body.appendChild(screen);
-    };
 
     //check board to see if there's 3 in a row
     if (board[0].textContent === player.sign && board[1].textContent === player.sign && board[2].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     else if (board[3].textContent === player.sign && board[4].textContent === player.sign && board[5].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     else if (board[6].textContent === player.sign && board[7].textContent === player.sign && board[8].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     //left-most column 3 in a row 
     else if (board[0].textContent === player.sign && board[3].textContent === player.sign && board[6].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     //middle column
     else if (board[1].textContent === player.sign && board[4].textContent === player.sign && board[7].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     //right-most column
     else if (board[2].textContent === player.sign && board[5].textContent === player.sign && board[8].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     // diagonal 1 
     else if (board[6].textContent === player.sign && board[4].textContent === player.sign && board[2].textContent === player.sign){
-        win(player);
+        return player.name;
     }
     //diagonal 2
     else if (board[8].textContent === player.sign && board[4].textContent === player.sign && board[0].textContent === player.sign){
-        win(player); 
+        return player.name; 
     }
     else if (board.forEach((element)=>{
         element.textContent != "";
@@ -125,6 +134,7 @@ const checkWin = (player) => {
     }
     })
     );
+    else return null;
 };
 
 
