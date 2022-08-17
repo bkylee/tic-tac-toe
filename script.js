@@ -4,6 +4,7 @@ const players = (sign, name) =>{
     }
 };
 
+//get number based on blanks to place 'o' for CPU move 
 const CPUmove = (board) => {
     //based on white spaces, CPU does their move
     const blanks = checkBlank(board);
@@ -13,16 +14,16 @@ return{
 }
 };
 
-function divEvent (board,player1,player2){
-    board.forEach((element)=>{ 
-    if (element.textContent === ""){
-    element.textContent = 'x';
-checkWin(player1, board);
-const oMove = CPUmove(board);
-board[oMove].textContent = 'o';
-checkWin(player2,board);}
-else prompt('Please click a blank spot');
-});
+//function to check the blank spots on the board
+const checkBlank = (board)=> {
+    blanks = [];
+    board.forEach((element) => {
+        if (element.textContent === ""){
+            blanks.push(element);
+        } 
+    });
+    return blanks;
+};
 
 const gameboard = (() => {
     const player1 = players('x', 'player1');
@@ -59,22 +60,19 @@ const gameboard = (() => {
     });
 
     board.forEach((element)=>{
-        element.addEventListener('click', x(board, player1, player2), true)});
+        element.addEventListener('click', ()=>{
+            if (element.textContent === ""){
+            element.textContent = 'x';
+        checkWin(player1, board);
+        const oMove = CPUmove(board);
+        board[oMove].textContent = 'o';
+        checkWin(player2,board);}
+    else prompt('Please click a blank spot');
+})
+});
 
 return {board};
 })();
-
-//function to check the blank spots on the board
-const checkBlank = (board)=> {
-    blanks = [];
-    board.forEach((element) => {
-        if (element.textContent === ""){
-            blanks.push(element);
-        } 
-    });
-    return blanks;
-};
-
 
 const checkWin = (player) => {
     const board = gameboard.board;
@@ -87,9 +85,6 @@ const checkWin = (player) => {
         screen.setAttribute('id','win');
         screen.textContent = `${player.name} wins!`;
         body.appendChild(screen);
-        board.forEach((element) =>{
-            element.removeEventListener('click', x(board), true);
-        })
     };
 
     //check board to see if there's 3 in a row
@@ -134,3 +129,5 @@ const checkWin = (player) => {
     })
     );
 };
+
+
