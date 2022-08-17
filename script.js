@@ -4,16 +4,6 @@ const players = (sign, name) =>{
     }
 };
 
-//get number based on blanks to place 'o' for CPU move 
-const CPUmove = (board) => {
-    //based on white spaces, CPU does their move
-    const blanks = checkBlank(board);
-    const move = Math.floor(Math.random()*blanks.length);
-return{
-    move
-}
-};
-
 //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
@@ -23,6 +13,15 @@ const checkBlank = (board)=> {
         } 
     });
     return blanks;
+};
+
+//get number based on blanks to place 'o' for CPU move 
+const CPUmove = (board) => {
+    //based on white spaces, CPU does their move
+    const blanks = checkBlank(board);
+    const move = Math.floor(Math.random()*blanks.length-1);
+    console.log(move);
+return move;
 };
 
 const gameboard = (() => {
@@ -78,7 +77,6 @@ const checkWin = (player) => {
     const board = gameboard.board;
     //function to show winner 
     const win = (player) => {
-
         //create win div screen thing
         const body = document.body;
         const screen = document.createElement('div');
