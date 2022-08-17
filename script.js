@@ -20,7 +20,6 @@ const CPUmove = (board) => {
     //based on white spaces, CPU does their move
     const blanks = checkBlank(board);
     const move = Math.floor(Math.random()*blanks.length-1);
-    console.log(move);
 return move;
 };
 
