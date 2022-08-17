@@ -4,6 +4,25 @@ const players = (sign, name) =>{
     }
 };
 
+const CPUmove = (board) => {
+    //based on white spaces, CPU does their move
+    const blanks = checkBlank(board);
+    const move = Math.floor(Math.random()*blanks.length);
+return{
+    move
+}
+};
+
+function divEvent (board,player1,player2){
+    board.forEach((element)=>{ 
+    if (element.textContent === ""){
+    element.textContent = 'x';
+checkWin(player1, board);
+const oMove = CPUmove(board);
+board[oMove].textContent = 'o';
+checkWin(player2,board);}
+else prompt('Please click a blank spot');
+});
 
 const gameboard = (() => {
     const player1 = players('x', 'player1');
@@ -40,20 +59,7 @@ const gameboard = (() => {
     });
 
     board.forEach((element)=>{
-        element.addEventListener('click', ()=>{
-            if (element.textContent === ""){
-            element.textContent = 'x';
-        checkWin(player1, board);
-        const blanks = checkBlank(board);
-                if (blanks.length === 0){
-                    return
-                }
-        const oMove = Math.floor(Math.random()*blanks.length);
-        board[oMove].textContent = 'o';
-        checkWin(player2,board);}
-    else prompt('Please click a blank spot');
-})
-});
+        element.addEventListener('click', x(board, player1, player2), true)});
 
 return {board};
 })();
@@ -81,6 +87,9 @@ const checkWin = (player) => {
         screen.setAttribute('id','win');
         screen.textContent = `${player.name} wins!`;
         body.appendChild(screen);
+        board.forEach((element) =>{
+            element.removeEventListener('click', x(board), true);
+        })
     };
 
     //check board to see if there's 3 in a row
@@ -125,13 +134,3 @@ const checkWin = (player) => {
     })
     );
 };
-
-const CPUmove = (board) => {
-    //based on white spaces, CPU does their move
-    const blanks = checkBlank(board);
-    const move = Math.floor(Math.random()*blanks.length);
-return{
-    move
-}
-}
-
