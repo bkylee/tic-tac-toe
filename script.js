@@ -29,7 +29,8 @@ const checkBlank = (board)=> {
 const CPUmove = (board) => {
     //based on white spaces, CPU does their move
     const blanks = checkBlank(board);
-    const move = Math.floor(Math.random()*blanks.length-1);
+    const len  = blanks.length - 1;
+    let move = Math.floor(Math.random()*len); 
 return move;
 };
 
@@ -77,12 +78,13 @@ const gameboard = (() => {
                 }
         else if (winner === null){
         const oMove = CPUmove(board);
+        console.log(oMove);
         board[oMove].textContent = 'o';
         winner = checkWin(player2);
             if (winner = player2.name){
                 win(player2);
             }
-            }
+        }
     else prompt('Please click a blank spot');
 }})
 });
