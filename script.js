@@ -110,21 +110,18 @@ let winner = null;
 const player2 = players('o','player2')
 
 const clickEvent = (element)=>{
-if (element.textContent === ""){
+if (element.textContent === "" && winner === null){
     element.textContent = 'x';
 winner = checkWin(player1,board);
         if (winner === player1.name){
-            return win(winner);
-        }
-}
-else if (winner === null){
+            return win(winner);}}
+else if (winner === null && element.textContent ===""){
 winner = CPUTurn(board, player2);
 if (winner === player2.name){
-    return win(winner);
+    return win(winner);}
 }
-else clickEvent(element);
+    else {prompt('please click a blank spot');}
 };
-}
 
 board.forEach((element)=>{
     element.addEventListener('click', ()=>{
