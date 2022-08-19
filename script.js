@@ -27,10 +27,6 @@ const reset = ((board)=>{
         screen.textContent = `${player.name} wins!`;
         body.appendChild(screen);
     };
-
-
-const checkWin = (player,board) => {
-    //function to check the blank spots on the board
 const checkBlank = (board)=> {
     blanks = [];
     board.forEach((element) => {
@@ -40,6 +36,10 @@ const checkBlank = (board)=> {
     });
     return blanks;
 };
+
+const checkWin = (player,board) => {
+    //function to check the blank spots on the board
+
     //check board to see if there's 3 in a row
     if (board[0].textContent === player.sign && board[1].textContent === player.sign && board[2].textContent === player.sign){
         return player.name;
@@ -109,7 +109,7 @@ let winner = null;
     const player1 = players('x', 'player1');
 const player2 = players('o','player2')
 
-const clickEvent = (element,player1,player2)=>{
+const clickEvent = (element)=>{
 if (element.textContent === ""){
     element.textContent = 'x';
 winner = checkWin(player1,board);
@@ -122,13 +122,13 @@ winner = CPUTurn(board, player2);
 if (winner === player2.name){
     return win(winner);
 }
-else clickEvent(element,player1,player2);
+else clickEvent(element);
 };
-};
+}
 
 board.forEach((element)=>{
     element.addEventListener('click', ()=>{
-        clickEvent(player1, player2);
+        clickEvent(element);
     })
 });
 
@@ -139,7 +139,7 @@ board.forEach((element)=>{
 const CPUTurn = (board, player2)=>{ 
 const oMove = CPUmove(board);
 board[oMove].textContent = 'o';
-const winner = checkWin(player2,board);
+let winner = checkWin(player2,board);
 if (winner = player2.name){
     return winner}
 else return null;
