@@ -4,7 +4,7 @@ const players = (sign, name) =>{
     }
 };
 
-const reset = (board)=>{
+const reset = ((board)=>{
     const resetB = document.getElementById('reset');
     resetB.textContent = 'Reset';
     resetB.addEventListener('click', ()=>{
@@ -14,7 +14,8 @@ const reset = (board)=>{
         const body = document.body;
         const screen = document.getElementById('win');
         body.removeChild(screen);
-    })};
+    })
+})();
 
 
  //function to show winner 
@@ -84,8 +85,6 @@ const checkBlank = (board)=> {
 };
 
 const gameboard = (() => {
-    const player1 = players('x', 'player1');
-    const player2 = players('o','player2')
     const board = [];
     const div1 = document.getElementById('1');
     board.push(div1);
@@ -105,48 +104,46 @@ const gameboard = (() => {
     board.push(div8);
     const div9 = document.getElementById('9');
     board.push(div9);
-    reset(board);
-return{board};
-})();
 
+let winner = null;
+    const player1 = players('x', 'player1');
+const player2 = players('o','player2')
 
-const clickEvent = ((element,player1,player2)=>{
-    let board = gameboard.board;
-    let winner = null;
-if (element.textContent === null){
+const clickEvent = (element,player1,player2)=>{
+if (element.textContent === ""){
     element.textContent = 'x';
 winner = checkWin(player1,board);
         if (winner === player1.name){
             return win(winner);
         }
 }
-else if (winner === ""){
+else if (winner === null){
 winner = CPUTurn(board, player2);
 if (winner === player2.name){
     return win(winner);
 }
-else clickEvent(board,player1,player2);
-}
-})();
+else clickEvent(element,player1,player2);
+};
+};
 
-board.forEach((element) =>{
-    addEventListener('click', clickEvent(element,player1, player2));
+board.forEach((element)=>{
+    element.addEventListener('click', ()=>{
+        clickEvent(player1, player2);
+    })
 });
 
-
-
+    return{board};
+})();
 
 
 const CPUTurn = (board, player2)=>{ 
 const oMove = CPUmove(board);
 board[oMove].textContent = 'o';
-winner = checkWin(player2,board);
+const winner = checkWin(player2,board);
 if (winner = player2.name){
     return winner}
 else return null;
 };
-
-
 
 //get number based on blanks to place 'o' for CPU move 
 const CPUmove = (board) => {
