@@ -4,6 +4,37 @@ const players = (sign, name) =>{
     }
 };
 
+const CPUTurn = (board, player2)=>{ 
+const oMove = CPUmove(board);
+console.log(oMove);
+board[oMove].textContent = 'o';
+winner = checkWin(player2);
+if (winner = player2.name){
+    win(player2);
+    return player2;}
+else return null;
+}
+
+
+const game = (board,player1, player2)=>{
+    board.forEach((element)=>{
+        let winner = null;
+    if (element.textContent === ""){
+        element.textContent = 'x';
+    winner = checkWin(player1);
+            if (winner === player1.name){
+                return {player1}
+            }
+}
+else if (winner === null){
+    winner = CPUTurn(board, player2);
+    if (winner === player2.name){
+        return {player2};
+    }
+}
+});
+}
+
     //function to show winner 
     const win = (player) => {
         //create win div screen thing
