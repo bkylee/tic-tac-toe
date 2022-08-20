@@ -4,27 +4,14 @@ const players = (sign, name) =>{
     }
 };
 
-const reset = ((board)=>{
-    const resetB = document.getElementById('reset');
-    resetB.textContent = 'Reset';
-    resetB.addEventListener('click', ()=>{
-        board.forEach((element)=>{
-            element.textContent = "";
-        });
-        const body = document.body;
-        const screen = document.getElementById('win');
-        body.removeChild(screen);
-    })
-})();
-
 
  //function to show winner 
-    const win = (player) => {
+    const win = (winner) => {
         //create win div screen thing
         const body = document.body;
         const screen = document.createElement('div');
         screen.setAttribute('id','win');
-        screen.textContent = `${player.name} wins!`;
+        screen.textContent = `${winner} wins!`;
         body.appendChild(screen);
     };
 const checkBlank = (board)=> {
@@ -38,7 +25,6 @@ const checkBlank = (board)=> {
 };
 
 const checkWin = (player,board) => {
-    //function to check the blank spots on the board
 
     //check board to see if there's 3 in a row
     if (board[0].textContent === player.sign && board[1].textContent === player.sign && board[2].textContent === player.sign){
@@ -107,7 +93,7 @@ const gameboard = (() => {
 
 let winner = null;
 const player1 = players('x', 'player1');
-const player2 = players('o','player2')
+const player2 = players('o', 'player2');
 
 const clickEvent = (element)=>{
     let blanks = checkBlank(board);
@@ -139,6 +125,19 @@ board.forEach((element)=>{
     return{board};
 })();
 
+const reset = (()=>{
+    let board = gameboard.board;
+    const resetB = document.getElementById('reset');
+    resetB.textContent = 'Reset';
+    resetB.addEventListener('click', ()=>{
+        board.forEach((element)=>{
+            element.textContent = "";
+        });
+        const body = document.body;
+        const screen = document.getElementById('win');
+        body.removeChild(screen);
+    })
+})();
 
 const CPUTurn = (blanks, player2)=>{ 
 const oMove = CPUmove(blanks);
