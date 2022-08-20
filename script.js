@@ -4,7 +4,6 @@ const players = (sign, name) =>{
     }
 };
 
-
  //function to show winner 
     const win = (winner) => {
         //create win div screen thing
@@ -64,6 +63,7 @@ const checkWin = (player,board) => {
         tie.textContent = `It's a tie!`;
         body = document.body;
         body.appendChild(tie);
+        return null;
     }
     })
     );
@@ -107,7 +107,6 @@ else {winner = CPUTurn(blanks, player2)};
 if (winner === player2.name){return win(winner)};
 }
 else return;
-if (element.textContent !=""){return prompt('please click a blank spot');};
 
 board.forEach((element)=>{
     element.addEventListener('click', ()=>{
@@ -144,7 +143,7 @@ const oMove = CPUmove(blanks);
 blanks[oMove].textContent = 'o';
 const board = gameboard.board;
 let winner = checkWin(player2,board);
-if (winner = player2.name){
+if (winner === player2.name){
     return winner}
 else return null;
 };
