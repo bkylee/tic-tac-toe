@@ -106,22 +106,29 @@ const gameboard = (() => {
     board.push(div9);
 
 let winner = null;
-    const player1 = players('x', 'player1');
+const player1 = players('x', 'player1');
 const player2 = players('o','player2')
 
 const clickEvent = (element)=>{
-if (element.textContent === "" && winner === null){
+    let blanks = checkBlank(board);
+if (board.indexOf(element) === true){
     element.textContent = 'x';
+    blanks = checkBlank(board);
 winner = checkWin(player1,board);
         if (winner === player1.name){
-            return win(winner);}}
-else if (winner === null && element.textContent ===""){
-winner = CPUTurn(board, player2);
-if (winner === player2.name){
-    return win(winner);}
+            return win(winner);}
+else {winner = CPUTurn(blanks, player2)};
+if (winner === player2.name){return win(winner)};
 }
-    else {prompt('please click a blank spot');}
-};
+else return;
+if (element.textContent !=""){return prompt('please click a blank spot');};
+
+board.forEach((element)=>{
+    element.addEventListener('click', ()=>{
+        clickEvent(element);
+    });
+});
+}
 
 board.forEach((element)=>{
     element.addEventListener('click', ()=>{
@@ -133,9 +140,9 @@ board.forEach((element)=>{
 })();
 
 
-const CPUTurn = (board, player2)=>{ 
-const oMove = CPUmove(board);
-board[oMove].textContent = 'o';
+const CPUTurn = (blanks, player2)=>{ 
+const oMove = CPUmove(blanks);
+blanks[oMove].textContent = 'o';
 let winner = checkWin(player2,board);
 if (winner = player2.name){
     return winner}
@@ -143,9 +150,8 @@ else return null;
 };
 
 //get number based on blanks to place 'o' for CPU move 
-const CPUmove = (board) => {
+const CPUmove = (blanks) => {
     //based on white spaces, CPU does their move
-    const blanks = checkBlank(board);
     const len  = blanks.length - 1;
     let move = Math.floor(Math.random()*len); 
 return move;
