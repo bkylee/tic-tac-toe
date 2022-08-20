@@ -111,7 +111,7 @@ const player2 = players('o','player2')
 
 const clickEvent = (element)=>{
     let blanks = checkBlank(board);
-if (board.indexOf(element) === true){
+if (blanks.includes(element) === true){
     element.textContent = 'x';
     blanks = checkBlank(board);
 winner = checkWin(player1,board);
@@ -143,6 +143,7 @@ board.forEach((element)=>{
 const CPUTurn = (blanks, player2)=>{ 
 const oMove = CPUmove(blanks);
 blanks[oMove].textContent = 'o';
+const board = gameboard.board;
 let winner = checkWin(player2,board);
 if (winner = player2.name){
     return winner}
