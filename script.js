@@ -1,18 +1,19 @@
 const players = (sign, name) =>{
-    return{
-        sign, name
-    }
-};
-
- //function to show winner 
-    const win = (winner) => {
+     //function to show winner 
+     const win = () => {
         //create win div screen thing
         const body = document.body;
         const screen = document.createElement('div');
         screen.setAttribute('id','win');
-        screen.textContent = `${winner} wins!`;
+        screen.textContent = `${name} wins!`;
         body.appendChild(screen);
     };
+    return{
+        sign, name, win
+    }
+};
+
+
 const checkBlank = (board)=> {
     blanks = [];
     board.forEach((element) => {
@@ -92,8 +93,8 @@ const gameboard = (() => {
     board.push(div9);
 
 let winner = null;
-const player1 = players('x', 'player1');
-const player2 = players('o', 'player2');
+const player1 = players('x', 'Player1');
+const player2 = players('o', 'Player2');
 
 const clickEvent = (element)=>{
     let blanks = checkBlank(board);
@@ -102,9 +103,9 @@ if (blanks.includes(element) === true){
     blanks = checkBlank(board);
 winner = checkWin(player1,board);
         if (winner === player1.name){
-            return win(winner);}
+            return player1.win();}
 else {winner = CPUTurn(blanks, player2)};
-if (winner === player2.name){return win(winner)};
+if (winner === player2.name){return player2.win()};
 }
 else return;
 
